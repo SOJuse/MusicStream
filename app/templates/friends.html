@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ user.username }}'s friends:</h1>
+    <hr>
+    {% for friend in friends %}
+    <p>
+        <a href="{{ url_for('user', username=friend) }}"> {{ friend }} </a>
+    </p>
+    {% else %}
+    <p>No friends found.</p>
+    {% endfor %}
+    <hr>
+    {% if friends_requests %}
+    <h1> Your friends requests: </h1>
+    {% for name in friends_requests %}
+    <p>
+        <a href="{{ url_for('user', username=name) }}"> {{ name }} </a>
+    </p>
+
+    <form action="" method="POST">
+        <input type="hidden" name="friendname" value="{{ name }}">
+        <button type="submit" name="button_ans_request" value="accepted">Accept</button>
+        <button type="submit" name="button_ans_request" value="declined">Decline</button>
+    </form>
+
+    {% endfor %}
+    {% endif %}
+{% endblock %}

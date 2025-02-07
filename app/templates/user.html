@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>User: {{ user.username }}</h1>
+    <hr>
+    {% if user == current_user %}
+    <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+    <p>
+     HI {{ user.username }} <b> IT IS YOUR PROFILE </b>
+    </p>
+    {% else %}
+    {% if status %}
+        {% if status == 'accepted' %}
+        <p> you are already friends </p>
+        {% endif %}
+        {% if status == 'pending' %}
+        <p> friend request is being processed </p>
+        {% endif %}
+        {% if status == 'declined' %}
+        <p> friend request is declined </p>
+        {% endif %}
+    {% else %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>{{ form.submit() }}</p>
+    </form>
+    {% endif %}
+    {% endif %}
+{% endblock %}
